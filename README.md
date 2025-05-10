@@ -1,4 +1,4 @@
-# 📱 Invoice Creator App (Android)
+# 📱 Invoice Generator App (Android)
 
 An Android application built using Java that enables users to easily create, manage, and export professional invoices directly from their mobile devices. Perfect for freelancers, contractors, and small business owners on the go.
 
@@ -30,7 +30,7 @@ An Android application built using Java that enables users to easily create, man
 
 ## 📱 Screenshots
 
-> *(Add screenshots of the app UI here – invoice creation screen, list of invoices, generated PDF preview, etc.)*
+Coming soon!
 
 ## 🚀 Getting Started
 
@@ -45,4 +45,4 @@ An Android application built using Java that enables users to easily create, man
 1. **Clone the repository**
    ```bash
    git clone https://github.com/cpcdiu/invoice_generator.git
-   cd invoice-creator-android
+   cd invoice_generator
