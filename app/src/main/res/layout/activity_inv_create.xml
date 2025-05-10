@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    tools:context=".InvCreate">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Invoice"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invoice No:"/>
+
+        <!-- You may want to replace the above TextView with an EditText if invoice number is user-entered -->
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client information"
+            android:textSize="18sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text"
+            android:layout_marginBottom="5dp"
+            android:hint="Client Name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text"
+            android:hint="Contact Number"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item List"
+            android:textSize="18sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text"
+            android:layout_marginBottom="5dp"
+            android:hint="Item Name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text"
+            android:hint="Item Price"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tax_discount"
+            android:textSize="18sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text"
+            android:layout_marginBottom="5dp"
+            android:hint="Tax (%)"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text"
+            android:hint="Discount (%)"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notes"
+            android:textSize="18sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/edit_text"
+            android:layout_marginBottom="5dp"
+            android:hint="Write here...."/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Status"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
