@@ -10,9 +10,13 @@ package com.mojahid.invoicegenerator.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,10 +70,18 @@ public class SettingsFragment extends Fragment {
                         }
 
                         try {
-                            Drawable drawable = ImageDecoder.decodeDrawable(
-                                    ImageDecoder.createSource(requireContext().getContentResolver(), uri)
-                            );
-                            imagePreview.setImageDrawable(drawable);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { // API 28+
+                                Drawable drawable = ImageDecoder.decodeDrawable(
+                                        ImageDecoder.createSource(requireContext().getContentResolver(), uri)
+                                );
+                                imagePreview.setImageDrawable(drawable);
+                            } else {
+                                Bitmap bitmap = BitmapFactory.decodeStream(
+                                        requireContext().getContentResolver().openInputStream(uri)
+                                );
+                                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                                imagePreview.setImageDrawable(drawable);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Error loading image", Toast.LENGTH_SHORT).show();
@@ -104,10 +116,18 @@ public class SettingsFragment extends Fragment {
         if (logoUriStr != null) {
             Uri logoUri = Uri.parse(logoUriStr);
             try {
-                Drawable drawable = ImageDecoder.decodeDrawable(
-                        ImageDecoder.createSource(requireContext().getContentResolver(), logoUri)
-                );
-                imagePreview.setImageDrawable(drawable);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { // API 28+
+                    Drawable drawable = ImageDecoder.decodeDrawable(
+                            ImageDecoder.createSource(requireContext().getContentResolver(), logoUri)
+                    );
+                    imagePreview.setImageDrawable(drawable);
+                } else {
+                    Bitmap bitmap = BitmapFactory.decodeStream(
+                            requireContext().getContentResolver().openInputStream(logoUri)
+                    );
+                    Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                    imagePreview.setImageDrawable(drawable);
+                }
                 selectedImageUri = logoUri;
             } catch (IOException | SecurityException e) {
                 e.printStackTrace();
@@ -116,6 +136,7 @@ public class SettingsFragment extends Fragment {
             }
         }
     }
+
     private void saveSettings(View view) {
         EditText currencySymbolEdit = view.findViewById(R.id.currency_symbol);
         EditText taxRateEdit = view.findViewById(R.id.tax_rate);
