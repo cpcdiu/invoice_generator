@@ -10,13 +10,9 @@ package com.mojahid.invoicegenerator.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,18 +66,19 @@ public class SettingsFragment extends Fragment {
                         }
 
                         try {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { // API 28+
-                                Drawable drawable = ImageDecoder.decodeDrawable(
+                            Drawable drawable;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                                // Use ImageDecoder for API level 28 and above
+                                drawable = ImageDecoder.decodeDrawable(
                                         ImageDecoder.createSource(requireContext().getContentResolver(), uri)
                                 );
-                                imagePreview.setImageDrawable(drawable);
                             } else {
-                                Bitmap bitmap = BitmapFactory.decodeStream(
-                                        requireContext().getContentResolver().openInputStream(uri)
+                                // Use Drawable.createFromStream for API level below 28
+                                drawable = Drawable.createFromStream(
+                                        requireContext().getContentResolver().openInputStream(uri), uri.toString()
                                 );
-                                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                                imagePreview.setImageDrawable(drawable);
                             }
+                            imagePreview.setImageDrawable(drawable);
                         } catch (IOException e) {
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Error loading image", Toast.LENGTH_SHORT).show();
@@ -116,18 +113,19 @@ public class SettingsFragment extends Fragment {
         if (logoUriStr != null) {
             Uri logoUri = Uri.parse(logoUriStr);
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { // API 28+
-                    Drawable drawable = ImageDecoder.decodeDrawable(
+                Drawable drawable;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                    // Use ImageDecoder for API level 28 and above
+                    drawable = ImageDecoder.decodeDrawable(
                             ImageDecoder.createSource(requireContext().getContentResolver(), logoUri)
                     );
-                    imagePreview.setImageDrawable(drawable);
                 } else {
-                    Bitmap bitmap = BitmapFactory.decodeStream(
-                            requireContext().getContentResolver().openInputStream(logoUri)
+                    // Use Drawable.createFromStream for API level below 28
+                    drawable = Drawable.createFromStream(
+                            requireContext().getContentResolver().openInputStream(logoUri), logoUri.toString()
                     );
-                    Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                    imagePreview.setImageDrawable(drawable);
                 }
+                imagePreview.setImageDrawable(drawable);
                 selectedImageUri = logoUri;
             } catch (IOException | SecurityException e) {
                 e.printStackTrace();
